@@ -1,3 +1,9 @@
+Hello, and welcome to my portfolio! 
+I hope you'll enjoy what you find here.
+I'm going to keep the original github content below, as I find it useful. 
+
+
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/medicurt/medicurt.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
