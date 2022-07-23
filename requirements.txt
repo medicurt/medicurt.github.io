@@ -9,7 +9,7 @@ psycopg2-binary
 alembic
 sqlalchemy
 emails
-jinja
+
 sendgrid
 python-dotenv
 

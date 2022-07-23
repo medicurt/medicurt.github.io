@@ -38,10 +38,10 @@ class Settings(BaseSettings):
             return v
         return PostgresDsn.build(
             scheme="postgresql",
-            user=values.get("POSTGRES_USER")
+            user=values.get("POSTGRES_USER"),
             password=values.get("POSTGRES_PASSWORD"),
             host=values.get("POSTGRES_SERVER"),
-            path=f"{values.get('POSTGRES_DB') or ''}"
+            path=f"{values.get('POSTGRES_DB') or ''}",
         )
 
     SMTP_TLS: bool = True
@@ -50,5 +50,19 @@ class Settings(BaseSettings):
     SMTP_USER: str | None = None
     SMTP_PASSWORD: str | None = None
 
-    FIRST_SUPERUSER: str = "user@example.com"
+    FIRST_SUPERUSER: str = "cthomas@example.com"
     FIRST_SUPERUSER_PASSWORD: str = Field(..., env="FIRST_SUPERUSER_PASSWORD")
+    PYTEST_USER_ID: str = "user@example.com"
+    PYTEST_PASSWORD: str = Field(..., env="PYTEST_PASSWORD")
+    PYTEST_USER_ID: int = 1
+
+    LOCAL_API_KEY: str = None
+    ENVIRONMENT: str = None
+    TEST = "TEST"
+
+    class Config:
+        case_sensitive = True
+        env_file = ".env"
+    
+settings = Settings()
+
