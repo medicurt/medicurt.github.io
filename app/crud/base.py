@@ -10,6 +10,9 @@ ModelType = TypeVar("ModelType", bound = Base)
 CreateSchemaType = TypeVar("CreateSchemaType", bound = BaseModel)
 UpdateSchemaType = TypeVar("UpdateSchemaType", bound = BaseModel)
 
+#this is the root crud class that will be overridden by a unique crud class for every endpoint->schema->model chain.
+# Setting the CRUD up this way allows the programmer to easily change CRUD behavior for multiple classes at once while
+# also allowing each class to have its own crud behavior as needed. 
 
 class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     def __init__(self, model: Type[ModelType]):

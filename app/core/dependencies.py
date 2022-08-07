@@ -14,6 +14,9 @@ from app.core import security
 from app.core.config import settings
 from app.db.session import SessionLocal
 
+
+#This file contains code that will be used extensively by the api endpoint files in order to establish user authentication, db connections, and so on.
+
 reusable_oauth2 = OAuth2PasswordBearer(tokenUrl=f"{settings.API_STR}/login")
 
 API_KEY_NAME = "x-api-key"

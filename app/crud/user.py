@@ -8,7 +8,8 @@ from app.models.user import User
 from app.schemas.user import UserCreate, UserUpdate
 
 
-#overrides the base methods for addtl functionality
+#overrides the base methods for addtl functionality. This CRUD class is used for CRUDing users and requires
+#extra functionality to support secure creation, access, and storage of user data. 
 
 class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
     def get_by_username(self, db: Session, *, username: str) -> Optional[User]:
