@@ -4,7 +4,8 @@ from fastapi import APIRouter
 #and then assigning them to a url path in order to access the endpoint's functionality.
 
 from app.api.endpoints import(
-    event
+    event,
+    user,
 )
 
 api_router = APIRouter()
@@ -12,4 +13,8 @@ api_router = APIRouter()
 api_router.include_router(
     event.router, prefix="/event",
     tags = ["event"]
+)
+
+api_router.include_router(
+    user.router, prefix="/user", tags=["user"]
 )

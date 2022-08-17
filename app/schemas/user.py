@@ -1,4 +1,6 @@
 from pydantic import BaseModel, Field
+from app.schemas.event import Event
+from typing import List
 
 # base class is always optional, as fields are only required under specific circumstances
 class UserBase(BaseModel):
@@ -27,3 +29,22 @@ class User(UserBase):
 
 class UserInDB(User):
     hashed_password: str
+
+
+class UserSubscriptionsBase(BaseModel):
+    user_id: int | None
+    event_id: int | None
+
+class UserSubscriptionCreate(UserSubscriptionsBase):
+    user_id: int = Field(
+        ...
+    )
+    event_id: int = Field(
+        ...
+    )
+
+class UserSubscriptionsUpdate(UserSubscriptionsBase):
+    pass
+
+class UserSubscriptions(UserSubscriptionsBase):
+    id: int | None

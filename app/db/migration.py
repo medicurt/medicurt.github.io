@@ -5,5 +5,5 @@
 from app.db.base import Base
 
 from app.models.event import Event
-from app.models.user import User
+from app.models.user import User, UserSubscriptions
 from app.models.permissions import Permissions

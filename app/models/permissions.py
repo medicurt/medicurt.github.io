@@ -3,7 +3,8 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.sql import func
 from app.db.base import Base
 
-
+#This table controls the permissions associated with registered users. The JSONB uses an enumerated string type
+#to set DENY/READ/READ-WRITE/or FULL privileges for each API endpoint.
 class Permissions(Base):
     __tablename__ = "permissions"
 
@@ -13,7 +14,6 @@ class Permissions(Base):
     description = Column(String)
     permissions = Column(JSONB, nullable=False)
 
-    updated_by = Column(Integer, ForeignKey("user.id"), nullable=False)
     updated_at = Column(
         DateTime(timezone=True), default=func.now(), onupdate=func.now()
     )

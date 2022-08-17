@@ -17,6 +17,7 @@ from fastapi.exceptions import RequestValidationError
 
 from app.core import dependencies
 from app.core.config import settings
+from app.api.api import api_router
 
 
 
@@ -76,4 +77,4 @@ async def get_documentation(
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="127.0.0.1", port=8000)

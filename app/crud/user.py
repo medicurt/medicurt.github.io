@@ -4,8 +4,8 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.core.security import get_password_hash, verify_password
 from app.crud.base import CRUDBase
-from app.models.user import User
-from app.schemas.user import UserCreate, UserUpdate
+from app.models.user import User, UserSubscriptions
+from app.schemas.user import UserCreate, UserUpdate, UserSubscriptionCreate, UserSubscriptionsUpdate
 
 
 #overrides the base methods for addtl functionality. This CRUD class is used for CRUDing users and requires
@@ -58,3 +58,8 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
 
 
 user = CRUDUser(User)
+
+class CRUDUserSubscriptions(CRUDBase[UserSubscriptions, UserSubscriptionCreate, UserSubscriptionsUpdate]):
+    pass
+
+user_subscription = CRUDUserSubscriptions(UserSubscriptions)

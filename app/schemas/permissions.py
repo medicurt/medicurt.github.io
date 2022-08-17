@@ -7,6 +7,8 @@ from app.core.enumarations import Permissions
 class EndpointPermissions(BaseModel):
     event: Permissions = Permissions.DENY
     permissions: Permissions = Permissions.DENY
+    user_subscriptions: Permissions = Permissions.DENY
+    
 
 
 # At base, all fields are optional (thus '| None') and will be switched to required as needed by inheriting schemas

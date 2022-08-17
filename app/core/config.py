@@ -7,7 +7,7 @@ from pydantic import AnyHttpUrl, BaseSettings, EmailStr, Field, PostgresDsn, val
 
 
 class Settings(BaseSettings):
-    API_STR: str = "/api/"
+    API_STR: str = "/api"
     SECRET_KEY: str = "e92c425584f88cf73e0c823a3c4e5aafe760746e245c5cecd041de033efa4949"
     expire_minutes = 15
     expire_num_cycles = 4

@@ -2,7 +2,6 @@
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from fastapi.encoders import jsonable_encoder
-from types import ModelType
 from typing import Any, Dict, Generic, Type, TypeVar, List, Union
 from app.db.base import Base
 
@@ -30,7 +29,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         db_obj.validate()
         db.add(db_obj)
         db.commit()
-        db.refresh()
+        db.refresh(db_obj)
         return db_obj
 
     def update(
