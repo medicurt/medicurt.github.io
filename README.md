@@ -2,7 +2,14 @@ Hello, and welcome to my portfolio!
 I hope you'll enjoy what you find here.
 I'm going to keep the original github content below, as I find it useful. 
 
+###My ePortfolio: Events API
 
+##Part one: The Code Review
+This video was too large to upload directly to github, and had to be hosted on YouTube
+https://youtu.be/uIffjfdDBas
+
+##Part Two: The artifact
+This artifact represents the cumulative effort applied over the course of the CS-499 class. 
 
 ## Welcome to GitHub Pages
 
