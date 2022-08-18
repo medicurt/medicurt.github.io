@@ -1,0 +1,7 @@
+Schemas basically serve as tools for framing incoming or outgoing data into predictable dictionary-like structures. 
+They are also able to preform some basic validation on data; if robust validation is desired, another approach should be considered. 
+Pydantic fields ( = Field(...)) are one way of adding validation requirements to a field in a schema; single positional parameters usually indicate a default,
+'...' means that the field is required and will raise an error if not filled. Additionally, the pipe operator ('|') used in the 'str | None' type hints
+means that the field will accept a union of types including string or None types, which is just a simple and fancy way to make a field optional. 
+
+Care must be taken not to make non-nullable model attributes optional in the corresponding schema's fields unless it's for a schema returning data from db.

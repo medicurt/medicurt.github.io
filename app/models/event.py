@@ -4,7 +4,6 @@ from sqlalchemy.sql import func
 
 
 from app.db.base import Base
-from enum import Enum
 
 
 #This class establishes the event table in the DB, which stores useful information about events. 

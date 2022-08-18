@@ -1,0 +1,2 @@
+The CRUD layer does what it says on the tin. As new data models are added, new crud files are added that inherit and overload the existing base CRUD methods.
+It is designed this way so that each crud model uses the same code unless a method is overridden as needed in that model's crud file

@@ -11,6 +11,7 @@ from app.core.enumarations import Permissions
 
 router = APIRouter()
 #this endpoint allows authorized users to create, read, update, and delete events
+#permissions system temporarily commented to facilitate running on other machines
 
 #gets a list of available events
 @router.get("/", response_model=List[Event], include_in_schema=True)

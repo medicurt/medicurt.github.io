@@ -1,0 +1,4 @@
+The 'api' section here provides the callable functionality of the code that will be used by a website. The basic idea is that when a call is made to the
+apirouter's url (for example, @get /user/food/beans), the code at the endpoint then sends a call to the crud layer, which uses the schema to create a dictionary
+style data structure with some basic validation, which is then applied to a model (where applicable) and passed to the database. The returned data is then passed back to
+the client. {['name':'cannelini'],['name':'garbanzo']}

@@ -31,3 +31,14 @@ then run 'alembic upgrade head'.
 
 To start the server, run uvicorn by typing into BASH 'uvicorn app.main:app', ctrl+c to stop the server.
 
+How it works:
+The 'api' section here provides the callable functionality of the code that will be used by a website. The basic idea is that when a call is made to the
+apirouter's url (for example, @get /user/food/beans), the code at the endpoint then sends a call to the crud layer, which uses the schema to create a dictionary
+style data structure with some basic validation, which is then applied to a model (where applicable) and passed to the database. The returned data is then passed back to
+the client. {['name':'cannelini'],['name':'garbanzo']}
+
+Trying it out:
+Under the tests section, there are several pytests that should be able to confirm if the crud layer is working. In its current state, the tests pass for the author. 
+
+Additional guidance:
+Text documents have been left in some layers of this project to help quickly explain the role of that layer and how to work with it. 

@@ -4,6 +4,7 @@ from pydantic import AnyHttpUrl, BaseSettings, EmailStr, Field, PostgresDsn, val
 
 #This file is set up to establish the boilerplate for connecting to the db and setting up certain other settings
 #for the project, such as '/api/ being the root api url string. An ENV file is used to make the code more portable.
+#This file is the one that uses the .env file to load certain important values
 
 
 class Settings(BaseSettings):
