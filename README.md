@@ -16,3 +16,5 @@ The artifacts for each of the three stages of developing this artifact are hoste
 
 ## Part Four:
 A professional self-assessment is presented to reflect on my journey of developing this artifact and completing the SNHU computer science program.
+
+[Link](https://github.com/medicurt/medicurt.github.io/blob/main/Professional%20Self-Assessment.docx)
