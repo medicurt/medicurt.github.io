@@ -18,9 +18,11 @@ This artifact is a demonstration of a postgres-python-fastapi backend which uses
 [Here is the link to the video of the code running locally](https://youtu.be/DioJy9iwOg8)
 
 ## Part Three: 
-The artifacts for each of the three stages of developing this artifact are hosted on this page, however I've provided a combined narrative on how this artifact satisfies all three artifact requirements for the course and satisfies the course objectives in doing so. It can be found [here](https://github.com/medicurt/medicurt.github.io/blob/main/Combined%20Report.docx) 
+The artifacts for each of the three stages of developing this artifact are hosted on this page, however I've provided a combined narrative on how this artifact satisfies all three artifact requirements for the course and satisfies the course objectives in doing so. It can be found [here](https://github.com/medicurt/medicurt.github.io/blob/main/Combined%20Report%20(1).docx) 
 
 ## Part Four:
 A professional self-assessment is presented to reflect on my journey of developing this artifact and completing the SNHU computer science program.
 
 [Link](https://github.com/medicurt/medicurt.github.io/blob/main/Professional%20Self-Assessment.docx)
+
+
