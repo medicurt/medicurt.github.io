@@ -11,6 +11,8 @@ This video was too large to upload directly to github, and had to be hosted on Y
 ## Part Two: The artifact
 This artifact represents the cumulative effort applied over the course of the CS-499 class. The project hosted on the branch final-version includes all three improvements to algorithms and data structures, software engineering and design, and database usage. The final version of the project exists on the 'final-version' branch.
 
+[Link](https://github.com/medicurt/medicurt.github.io/tree/final-version)
+
 ## Part Three: 
 The artifacts for each of the three stages of developing this artifact are hosted on this page. 
 
