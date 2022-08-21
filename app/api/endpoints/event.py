@@ -19,7 +19,7 @@ def read(
     *,
     db: Session = Depends(get_db),
     skip: int = 0,
-    limit: int = 100,
+    limit: int = 1000,
     current_user: User = Depends(get_current_active_user)
 )-> Any:
     if not permission.has_permission(

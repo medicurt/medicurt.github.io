@@ -38,7 +38,13 @@ How it works:
 The 'api' section here provides the callable functionality of the code that will be used by a website. The basic idea is that when a call is made to the
 apirouter's url (for example, @get /user/food/beans), the code at the endpoint then sends a call to the crud layer, which uses the schema to create a dictionary
 style data structure with some basic validation, which is then applied to a model (where applicable) and passed to the database. The returned data is then passed back to
-the client. {['name':'cannelini'],['name':'garbanzo']}
+the client. {['name':'cannelini'],['name':'garbanzo']}. When a call is made to an endpoint, there is first a check to see if the user is logged in or in posession of a
+web token, followed by another check against the user's permissions (identified by the permissions id, which identifies different sets of permission constellations). 
+If a usuer has permission, then the program proceeds to check the data against the schema (schema enforcement is nearly none in normal crud calls). Once the 
+data has been validated against the schema, it is then passed on through to or from the database in the appropriate fashion.
+
+The order for setup should first be to establish permissions (grant full) in the db, followed by the first user so that the permissions can be given to the user.
+This is most easily accomplished by temporarily hard-coding some pytest values. 
 
 Trying it out:
 Under the tests section, there are several pytests that should be able to confirm if the crud layer is working. In its current state, the tests pass for the author. 
