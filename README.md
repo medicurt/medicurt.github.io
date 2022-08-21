@@ -15,6 +15,8 @@ This artifact is a demonstration of a postgres-python-fastapi backend which uses
 
 [Link](https://github.com/medicurt/medicurt.github.io/tree/final-version)
 
+[Here is the link to the video of the code running locally](https://youtu.be/DioJy9iwOg8)
+
 ## Part Three: 
 The artifacts for each of the three stages of developing this artifact are hosted on this page. 
 
