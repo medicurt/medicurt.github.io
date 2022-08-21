@@ -24,7 +24,7 @@ from app.api.api import api_router
 app = FastAPI(
     title=settings.PROJECT_NAME,
     openapi_url=f"{settings.API_STR}/openapi.json",
-    docs_url=None,
+    docs_url="/docs",
     redoc_url=None,
 )
 
@@ -50,29 +50,29 @@ async def route_logout_and_remove_cookie():
     return response
 
 
-@app.get("/docs", tags=["documentation"], include_in_schema=False)
-async def get_documentation(
-    api_key: APIKey = Depends(dependencies.get_api_key),
-    domain: str = Depends(dependencies.get_api_host),
-):
-    response = get_swagger_ui_html(openapi_url="/api/openapi.json", title="docs")
-    response.set_cookie(
-        dependencies.API_KEY_NAME,
-        value=api_key,
-        # domain="localtest.me",
-        httponly=True,
-        max_age=1800,
-        expires=1800,
-    )
-    response.set_cookie(
-        dependencies.HOST_KEY_NAME,
-        value=domain,
-        # domain="localtest.me",
-        httponly=True,
-        max_age=1800,
-        expires=1800,
-    )
-    return response
+# @app.get("/docs", tags=["documentation"], include_in_schema=False)
+# async def get_documentation(
+#     api_key: APIKey = Depends(dependencies.get_api_key),
+#     domain: str = Depends(dependencies.get_api_host),
+# ):
+#     response = get_swagger_ui_html(openapi_url="/api/openapi.json", title="docs")
+#     response.set_cookie(
+#         dependencies.API_KEY_NAME,
+#         value=api_key,
+#         # domain="localtest.me",
+#         httponly=True,
+#         max_age=1800,
+#         expires=1800,
+#     )
+#     response.set_cookie(
+#         dependencies.HOST_KEY_NAME,
+#         value=domain,
+#         domain="localtest.me",
+#         httponly=True,
+#         max_age=1800,
+#         expires=1800,
+#     )
+#     return response
 
 
 

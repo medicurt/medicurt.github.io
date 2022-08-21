@@ -6,8 +6,8 @@ from app.core.enumarations import Permissions
 # by accessing the permissions endpoint.
 class EndpointPermissions(BaseModel):
     event: Permissions = Permissions.DENY
-    permissions: Permissions = Permissions.DENY
-    user_subscriptions: Permissions = Permissions.DENY
+    user_events: Permissions = Permissions.DENY
+
     
 
 

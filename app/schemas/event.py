@@ -47,8 +47,8 @@ class EventBase(BaseModel):
 class EventCreate(EventBase):
     name: str = Field(..., min_length=1, max_length=300)
     description: str = Field(max_length=100000)
-    street_address: str = (Field(..., max_length=1000),)
-    city: str = (Field(..., max_length=1000),)
+    street_address: str = Field(..., max_length=1000)
+    city: str = Field(..., max_length=1000)
     state_or_province: str = Field(..., max_length=500)
     country: str = Field(..., max_length=500)
     date_to_occur: datetime.datetime = Field(...)

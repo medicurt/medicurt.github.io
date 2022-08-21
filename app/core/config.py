@@ -9,7 +9,7 @@ from pydantic import AnyHttpUrl, BaseSettings, EmailStr, Field, PostgresDsn, val
 
 class Settings(BaseSettings):
     API_STR: str = "/api"
-    SECRET_KEY: str = "e92c425584f88cf73e0c823a3c4e5aafe760746e245c5cecd041de033efa4949"
+    SECRET_KEY: str = Field(...,env="API_SECRET_KEY")
     expire_minutes = 15
     expire_num_cycles = 4
     ACCESS_TOKEN_EXPIRE_MINUTES: int = expire_minutes * expire_num_cycles
@@ -50,11 +50,11 @@ class Settings(BaseSettings):
 
     FIRST_SUPERUSER: str = "cthomas@example.com"
     FIRST_SUPERUSER_PASSWORD: str = Field(..., env="FIRST_SUPERUSER_PASSWORD")
-    PYTEST_USER_ID: str = "user@example.com"
+    PYTEST_USER_ID: int = Field(..., env="PYTEST_USER_ID")
     PYTEST_PASSWORD: str = Field(..., env="PYTEST_PASSWORD")
-    PYTEST_USER_ID: int = 1
+    PYTEST_USER: str = Field(..., env="PYTEST_USER")
 
-    LOCAL_API_KEY: str = None
+    LOCAL_API_KEY: str = SECRET_KEY
     ENVIRONMENT: str = None
     TEST = "TEST"
 

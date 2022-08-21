@@ -143,7 +143,7 @@ def remove(
     *,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user),
-    subscription_id = id,
+    subscription_id: int,
 )-> Any:
     in_db = user_subscription.get(
         db=db,

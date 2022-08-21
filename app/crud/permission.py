@@ -1,5 +1,8 @@
 from typing import Any, List
 from app.crud.base import CRUDBase
+from app.crud import user
+from app.models import User as user_model
+from app.crud import permission as crud_permission
 from app.core.enumarations import Permissions
 from app.models.permissions import Permissions as PermissionModel
 from app.schemas.permissions import PermissionCreate, PermissionUpdate
@@ -40,10 +43,9 @@ class CRUDPermissions(CRUDBase[PermissionModel, PermissionCreate, PermissionUpda
         #Admins and superusers have permission ID 0.
         if permission_id == 0:
             return True
+        user_seeking_permissions = db.query(user_model).filter_by(id = user_id).first()
         user_permissions = self.get(
-            db=db,
-            user_id=user_id,
-            id=permission_id
+            db=db, id=user_seeking_permissions.permissions_id
         )
         authorization = user_permissions.permissions
         if permission in authorization:
@@ -54,7 +56,7 @@ class CRUDPermissions(CRUDBase[PermissionModel, PermissionCreate, PermissionUpda
                 return True
             elif required_permission == Permissions.READ_WRITE and access_level in ["R", "RW"]:
                 return True
-            elif required_permission == Permissions.FULL and access_level == "FULL":
+            elif access_level == "FULL":
                 return True
         return False
 

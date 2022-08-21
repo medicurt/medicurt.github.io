@@ -23,8 +23,11 @@ Much of this program is dependent on an ENV file being configured. Use the follo
     FIRST_SUPERUSER_PASSWORD = [generate a superuser password]
     PYTEST_PASSWORD = [use your first superuser password; pytest is configured to use user_id 1]
 
-In its current state, the endpoint permissions won't work due to a bootstrapping problem with creating the first user account.
-In order to allow others to use this code, the permissions have been disabled.
+
+
+IMPORTANT:
+Hardcode run a permissions create pytest and record the permission id BEFORE creating a user, that way you can pass the permission id to 
+your user when you create it. 
 
 to run alembic in order to build tables, open bash and enter 'alembic revision --autogenerate -m [your message in single quotes]'
 then run 'alembic upgrade head'. 

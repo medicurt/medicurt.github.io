@@ -1,23 +1,42 @@
 import datetime
 from app.crud.user import user
 from sqlalchemy.orm import Session
-from app.schemas.user import UserCreate, User, UserSubscriptionCreate, UserSubscriptionsUpdate
+from app.schemas.user import UserCreate, UserUpdate, User, UserSubscriptionCreate, UserSubscriptionsUpdate
 from random import randint
 from tests.utils.utils import random_lower_string, random_bool
 from fastapi.encoders import jsonable_encoder
 from app.crud.user import user_subscription
 from tests.crud.test_event import create_random_event
+from app.core.config import settings
+from app.core.security import create_access_token
 
-#Use this method with hard-coded values to implement first user data
+def test_create_jwt()-> None:
+    a_token = {"token":create_access_token(user_id=1), "type":"bearer"}
+    assert a_token["token"] != None
+
+def test_authentication(db: Session, user_id: int)-> None:
+    curr_user = user.authenticate(db=db, username=settings.PYTEST_USER, password=settings.PYTEST_PASSWORD)
+    assert curr_user != None
+
+# def test_get_by_username(db: Session)-> None:
+#     curr_user = user.get_by_username(db=db, username=settings.PYTEST_USER)
+#     assert curr_user != None
+
+# Use this method with hard-coded values to implement first user data
+#THE PASSWORD STRING MUST BE HARDCODED, THE DB STORES HASHED PASSWORDS ONLY
+#YOU WILL NOT BE ABLE TO RECOVER THE PASSWORD IF LOST
+# Set superuser to True while creating your account
+# Consider disabling all asserts except that id is not none to avoid throwing a test failure
+#
 def test_create_user(db: Session, user_id: int)-> None:
     user_in = UserCreate(
-        username="user@example.com",
-        is_superuser=True,
+        username=random_lower_string(10)+"@example.com",
+        is_superuser=False,
         is_active=True,
         permissions_id=None,
         events_owned=None,
         events_subscribed=None,
-        password="mypassword"
+        password=random_lower_string()
     )
 
     new_user = user.create(
@@ -26,8 +45,34 @@ def test_create_user(db: Session, user_id: int)-> None:
     )
 
     assert new_user.id is not None
-    assert new_user.id == 0
+    assert new_user.username == user_in.username
+    assert new_user.hashed_password != user_in.password
+    assert user.authenticate(db=db, username=new_user.username, password=user_in.password) != None
 
+
+def test_get_user(db: Session, user_id: int)-> None:
+    user_in = UserCreate(
+        username=random_lower_string(10)+"@example.com",
+        is_superuser=False,
+        is_active=True,
+        permissions_id=None,
+        events_owned=None,
+        events_subscribed=None,
+        password=random_lower_string()
+    )
+
+    new_user = user.create(
+        db=db,
+        obj_in=user_in
+    )
+
+    my_user = user.get(
+        db=db,
+        id=new_user.id
+    )
+
+    assert my_user.id == new_user.id
+    assert my_user.username == new_user.username
 
 def test_create_subscription(db: Session, user_id: int)-> None:
     event = create_random_event(db=db, user_id=user_id)

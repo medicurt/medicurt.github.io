@@ -22,16 +22,16 @@ def read(
     limit: int = 100,
     current_user: User = Depends(get_current_active_user)
 )-> Any:
-    # if not permission.has_permission(
-    #     db=db,
-    #     user_id=current_user.id,
-    #     permission_id=current_user.permissions_id,
-    #     permission="event",
-    #     required_permission=Permissions.READ_ONLY
-    # ):
-    #     raise HTTPException(
-    #         status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
-    #     )
+    if not permission.has_permission(
+        db=db,
+        user_id=current_user.id,
+        permission_id=current_user.permissions_id,
+        permission="event",
+        required_permission=Permissions.READ_ONLY
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
+        )
     return crud_event.get_multi(
         db=db,
         skip=skip,
@@ -46,16 +46,16 @@ def create(
     item_in: EventCreate,
     current_user: User = Depends(get_current_active_user),
 )-> Any:
-    # if not permission.has_permission(
-    #     db=db,
-    #     user_id=current_user.id,
-    #     permission_id=current_user.permissions_id,
-    #     permission="event",
-    #     required_permission=Permissions.READ_WRITE
-    # ):
-    #     raise HTTPException(
-    #         status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
-    #     )
+    if not permission.has_permission(
+        db=db,
+        user_id=current_user.id,
+        permission_id=current_user.permissions_id,
+        permission="event",
+        required_permission=Permissions.READ_WRITE
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
+        )
     return crud_event.create(
         db=db,
         obj_in=item_in
@@ -70,16 +70,16 @@ def update(
     event_in: EventUpdate,
     current_user: User = Depends(get_current_active_user),
 )-> Any:
-    # if not permission.has_permission(
-    #     db=db,
-    #     user_id=current_user.id,
-    #     permission_id=current_user.permissions_id,
-    #     permission="event",
-    #     required_permission=Permissions.READ_WRITE
-    # ):
-    #     raise HTTPException(
-    #         status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
-    #     )
+    if not permission.has_permission(
+        db=db,
+        user_id=current_user.id,
+        permission_id=current_user.permissions_id,
+        permission="event",
+        required_permission=Permissions.READ_WRITE
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
+        )
     event = crud_event.get(
         db=db,
         id=id
@@ -98,16 +98,16 @@ def read(
     id: int,
     current_user: User = Depends(get_current_active_user)
 )-> Any:
-    # if not permission.has_permission(
-    #     db=db,
-    #     user_id=current_user.id,
-    #     permission_id=current_user.permissions_id,
-    #     permission="event",
-    #     required_permission=Permissions.READ_ONLY
-    # ):
-    #     raise HTTPException(
-    #         status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
-    #     )
+    if not permission.has_permission(
+        db=db,
+        user_id=current_user.id,
+        permission_id=current_user.permissions_id,
+        permission="event",
+        required_permission=Permissions.READ_ONLY
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
+        )
     event = crud_event.get(
         db=db,
         id=id,
@@ -124,16 +124,16 @@ def remove_item(
     id: int,
     current_user: User = Depends(get_current_active_user)
 )-> Any:
-    # if not permission.has_permission(
-    #     db=db,
-    #     user_id=current_user.id,
-    #     permission_id=current_user.permissions_id,
-    #     permission="event",
-    #     required_permission=Permissions.FULL
-    # ):
-    #     raise HTTPException(
-    #         status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
-    #     )
+    if not permission.has_permission(
+        db=db,
+        user_id=current_user.id,
+        permission_id=current_user.permissions_id,
+        permission="event",
+        required_permission=Permissions.FULL
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
+        )
     event = crud_event.get(
         db=db,
         id=id

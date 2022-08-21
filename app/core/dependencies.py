@@ -35,11 +35,6 @@ api_key_query = APIKeyQuery(name=API_KEY_NAME, auto_error=False)
 api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 api_key_cookie = APIKeyCookie(name=API_KEY_NAME, auto_error=False)
 
-api_host_query = APIKeyQuery(name=HOST_KEY_NAME, auto_error=False)
-api_host_header = APIKeyHeader(name=HOST_KEY_NAME, auto_error=False)
-api_host_cookie = APIKeyCookie(name=HOST_KEY_NAME, auto_error=False)
-
-
 async def get_api_key(
     api_key_query: str = Query(None, alias=API_KEY_NAME),
     api_key_header: str = Header(None, alias=API_KEY_NAME),
@@ -58,28 +53,10 @@ async def get_api_key(
         )
 
 
-async def get_api_host(
-    api_host_query: str = Query(None, alias=HOST_KEY_NAME),
-    api_host_header: str = Header(None, alias=HOST_KEY_NAME),
-    api_host_cookie: str = Cookie(None, alias=HOST_KEY_NAME),
-):
-    if api_host_query is not None:
-        return api_host_query
-    elif api_host_header is not None:
-        return api_host_header
-    elif api_host_cookie is not None:
-        return api_host_cookie
-    else:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Could not validate credentials",
-        )
-
-
 class ApiContext:
     def __init__(
         self,
-        forwarded_host: str,
+        forwarded_host: str = None,
         forwarded_for: str = None,
         user_agent: str = None,
     ):
@@ -87,24 +64,21 @@ class ApiContext:
         self.forwarded_for = forwarded_for
         self.user_agent = user_agent
 
-    def get_domain_key(self):
-        return self.forwarded_host
+
 
 
 def get_api_context(
     x_api_key: str = Depends(get_api_key),
-    x_forwarded_host: str = Depends(get_api_host),
     x_forwarded_for: str = Header(None),
     x_user_agent: str = Header(None),
 ):
 
-    api_keys = [security.WEB_API_KEY, security.APP_API_KEY, security.PYTEST_API_KEY]
+    api_keys = []
     if settings.LOCAL_API_KEY:
         api_keys.append(settings.LOCAL_API_KEY)
 
     if x_api_key in api_keys:
         return ApiContext(
-            forwarded_host=x_forwarded_host,
             forwarded_for=x_forwarded_for,
             user_agent=x_user_agent,
         )
