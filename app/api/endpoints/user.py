@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from app.core.dependencies import get_db, get_current_active_user, ApiContext, get_api_context
 from app.core.enumarations import Permissions
 from app.schemas import UserSubscriptions
-from app.schemas.user import UserSubscriptionCreate, UserSubscriptionsUpdate
+from app.schemas.user import UserSubscriptionCreate, UserSubscriptionsUpdate, UserSubscriptionsBase
 
 
 router = APIRouter()
@@ -65,7 +65,7 @@ def update_user(
         )
 
 @router.post(
-    "/subscriptions/", response_model=UserSubscriptions, include_in_schema=True
+    "/subscriptions", response_model=UserSubscriptions, include_in_schema=True
 )
 def create_subscription(
     *,
@@ -73,16 +73,16 @@ def create_subscription(
     subscription_in = UserSubscriptionCreate,
     current_user: User = Depends(get_current_active_user)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 )-> Any:
-    event = crud_event.get(
+    if not permission.has_permission(
         db=db,
-        id=UserSubscriptionCreate.event_id
-    )
-    if event is None:
+        user_id=current_user.id,
+        permission_id=current_user.permissions_id,
+        permission="user_events",
+        required_permission=Permissions.READ_WRITE
+    ):
         raise HTTPException(
-            status_code=400,
-            detail="Event not found"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
         )
-    subscription_in.user_id = current_user.id
     return user_subscription.create(
         db=db,
         obj_in=subscription_in
@@ -97,13 +97,23 @@ def get_subscription(
     current_user: User = Depends(get_current_active_user),
     sub_id = id
 )-> Any:
+    if not permission.has_permission(
+        db=db,
+        user_id=current_user.id,
+        permission_id=current_user.permissions_id,
+        permission="user_events",
+        required_permission=Permissions.READ_ONLY
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
+        )
     return user_subscription.get(
         db=db,
         id=sub_id
     )
 
 
-@router.get("/subscriptions/", response_model=List[UserSubscriptions], include_in_schema=True)
+@router.get("/subscriptions", response_model=List[UserSubscriptions], include_in_schema=True)
 def read(
     *,
     db: Session = Depends(get_db),
@@ -111,13 +121,23 @@ def read(
     limit: int = 100,
     current_user: User = Depends(get_current_active_user)
 )-> Any:
+    if not permission.has_permission(
+        db=db,
+        user_id=current_user.id,
+        permission_id=current_user.permissions_id,
+        permission="user_events",
+        required_permission=Permissions.READ_ONLY
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
+        )
     return user_subscription.get_multi(
         db=db,
         skip=skip,
         limit=limit
     )
 
-@router.post("/subscriptions/{id}", response_model=UserSubscriptions, include_in_schema=True)
+@router.put("/subscriptions/{id}", response_model=UserSubscriptions, include_in_schema=True)
 def update(
     *,
     db: Session = Depends(get_db),
@@ -125,6 +145,16 @@ def update(
     subscription_id = id,
     update_in = UserSubscriptionsUpdate
 )-> Any:
+    if not permission.has_permission(
+        db=db,
+        user_id=current_user.id,
+        permission_id=current_user.permissions_id,
+        permission="user_events",
+        required_permission=Permissions.READ_WRITE
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
+        )
     in_db = user_subscription.get(
         db=db,
         id=subscription_id
@@ -145,6 +175,16 @@ def remove(
     current_user: User = Depends(get_current_active_user),
     subscription_id: int,
 )-> Any:
+    if not permission.has_permission(
+        db=db,
+        user_id=current_user.id,
+        permission_id=current_user.permissions_id,
+        permission="user_events",
+        required_permission=Permissions.FULL
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Unauthorized!"
+        )
     in_db = user_subscription.get(
         db=db,
         id=subscription_id
